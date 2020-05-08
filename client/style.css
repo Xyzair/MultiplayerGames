@@ -1,0 +1,16 @@
+body{
+    background-color:#276146;
+}
+
+.chat {
+    height: 200px;
+    width: 400px;
+    overflow: auto;
+    background-color: darkcyan;
+}
+
+.text-input {
+    width: 400px;
+    background-color: darkcyan;
+    text-align: center;
+}
