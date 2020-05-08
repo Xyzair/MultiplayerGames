@@ -16,7 +16,18 @@ const io = socketio(server);
 
 io.on("connection", (sock) => {
   console.log('Someone has connected');
+  sock.on('disconnect', () => {
+    console.log('someone has disconnected')
+  });
+
   sock.emit("message", "You are connected");
+
+  //receive message from client and send to all clients
+  sock.on('message', (text => {
+    console.log(text);
+    io.on('message', "AHHH" + text);
+  }));
+
 });
 
 server.on("error", (err) => {
