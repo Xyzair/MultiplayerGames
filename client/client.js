@@ -8,11 +8,31 @@ const writeEvent = (text) => {
     parent.appendChild(element);
 };
 
-writeEvent("Event test successful")
+const onFormSubmitted = (e) => {
+    e.preventDefault();
+
+    //Find the chat box input
+    const input = document.querySelector('#chat');
+    //Store value from chat box.
+    const text = input.value;
+
+    //Clear input value on front end.
+    input.value = '';
+    console.log('text: ' + text);
+
+    //Send message to server
+    sock.emit('message', text);
+};
+
+writeEvent("Page successfully fetch and Javascript successfully loaded");
 
 //establishes connection with the server
-const soc = io();
+const sock = io();
 
-soc.on('message', (text) => {
+sock.on('message', (text) => {
     writeEvent(text);
 })
+
+document
+    .querySelector('#chat-form')
+    .addEventListener('submit', onFormSubmitted);
