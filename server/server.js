@@ -23,10 +23,10 @@ io.on("connection", (sock) => {
   sock.emit("message", "You are connected");
 
   //receive message from client and send to all clients
-  sock.on('message', (text => {
+  sock.on('message', (text) => {
     console.log(text);
-    io.on('message', "AHHH" + text);
-  }));
+    io.emit('message', text);
+  });
 
 });
 
