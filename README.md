@@ -26,3 +26,7 @@ Or if that fails
 
 Once the server is running go to http://localhost:8000/
 and start playing around with it.
+
+
+## Interface
+![Website interface](MultiplayerGames.png)
