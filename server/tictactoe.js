@@ -33,7 +33,8 @@ class TicTacToe {
 
   _sendWinMessage(winnerIndex) {
     this._sendToPlayers("Player " + (winnerIndex + 1) + " wins!");
-    this._winner = this._players[winnerIndex]
+    this._winner = this._players[winnerIndex];
+    console.log("Player " + (winnerIndex + 1) + " wins!");
   }
 
   //turn is expected to be the array coords of the move
@@ -52,7 +53,6 @@ class TicTacToe {
         }
         this._checkGameOver();
         this._turn = (playerIndex + 1) % 2;
-        
       }
     } else {
       this._sendToPlayer(playerIndex, "It is not your turn");
@@ -65,41 +65,41 @@ class TicTacToe {
 
     //Check all the rows for a match
     if (
-      (grid[0][0] === "X" && grid[0][1] === "X" && grid[0][2]) ||
-      (grid[1][0] === "X" && grid[1][1] === "X" && grid[1][2]) ||
-      (grid[2][0] === "X" && grid[2][1] === "X" && grid[2][2])
+      (grid[0][0] === "X" && grid[0][1] === "X" && grid[0][2] === "X") ||
+      (grid[1][0] === "X" && grid[1][1] === "X" && grid[1][2] === "X") ||
+      (grid[2][0] === "X" && grid[2][1] === "X" && grid[2][2] === "X")
     ) {
       this._sendWinMessage(0);
     } else if (
-      (grid[0][0] === "O" && grid[0][1] === "O" && grid[0][2]) ||
-      (grid[1][0] === "O" && grid[1][1] === "O" && grid[1][2]) ||
-      (grid[2][0] === "O" && grid[2][1] === "O" && grid[2][2])
+      (grid[0][0] === "O" && grid[0][1] === "O" && grid[0][2] === "O") ||
+      (grid[1][0] === "O" && grid[1][1] === "O" && grid[1][2] === "O") ||
+      (grid[2][0] === "O" && grid[2][1] === "O" && grid[2][2] === "O")
     ) {
       this._sendWinMessage(1);
 
       //Check Columns for a match
     } else if (
-      (grid[0][0] === "X" && grid[1][0] === "X" && grid[2][0]) ||
-      (grid[0][1] === "X" && grid[1][1] === "X" && grid[2][1]) ||
-      (grid[0][2] === "X" && grid[1][2] === "X" && grid[2][2])
+      (grid[0][0] === "X" && grid[1][0] === "X" && grid[2][0] === "X") ||
+      (grid[0][1] === "X" && grid[1][1] === "X" && grid[2][1] === "X") ||
+      (grid[0][2] === "X" && grid[1][2] === "X" && grid[2][2] === "X")
     ) {
       this._sendWinMessage(0);
     } else if (
-      (grid[0][0] === "O" && grid[1][0] === "O" && grid[2][0]) ||
-      (grid[0][1] === "O" && grid[1][1] === "O" && grid[2][1]) ||
-      (grid[0][2] === "O" && grid[1][2] === "O" && grid[2][2])
+      (grid[0][0] === "O" && grid[1][0] === "O" && grid[2][0] === "O") ||
+      (grid[0][1] === "O" && grid[1][1] === "O" && grid[2][1] === "O") ||
+      (grid[0][2] === "O" && grid[1][2] === "O" && grid[2][2] === "O")
     ) {
       this._sendWinMessage(1);
 
       //Check the diagonals
     } else if (
-      (grid[0][0] === "X" && grid[1][1] === "X" && grid[2][2]) ||
-      (grid[0][2] === "X" && grid[1][1] === "X" && grid[2][0])
+      (grid[0][0] === "X" && grid[1][1] === "X" && grid[2][2] === "X") ||
+      (grid[0][2] === "X" && grid[1][1] === "X" && grid[2][0] === "X")
     ) {
       this._sendWinMessage(0);
     } else if (
-      (grid[0][0] === "O" && grid[1][1] === "O" && grid[2][2]) ||
-      (grid[0][2] === "O" && grid[1][1] === "O" && grid[2][0])
+      (grid[0][0] === "O" && grid[1][1] === "O" && grid[2][2] === "O") ||
+      (grid[0][2] === "O" && grid[1][1] === "O" && grid[2][0] === "O")
     ) {
       this._sendWinMessage(1);
     }
