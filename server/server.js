@@ -26,9 +26,6 @@ io.on("connection", (sock) => {
 
   sock.on("disconnect", () => {
     console.log("someone has disconnected");
-    if (waitingPlayer !== null) {
-      waitingPlayer = null;
-    }
   });
 
   //Let's start a game.
