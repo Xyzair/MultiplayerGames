@@ -30,7 +30,7 @@ const addButtonListenersTTT = () => {
       document
         .getElementById("ttt" + i + "-" + j)
         .addEventListener("click", () => {
-          sock.emit("message", i + "-" + j);
+          sock.emit("turn", [i, j]);
           console.log("Button pressed " + i + ", " + j);
         });
     }
@@ -46,20 +46,22 @@ sock.on("message", (text) => {
   writeEvent(text);
 });
 
+//when an update event is sent out
+sock.on("update", (board) => {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      console.log(board[i][j] + " " + i + " " + j);
+      if (board[i][j] !== null) {
+        element = document.getElementById("ttt" + i + "-" + j);
+        console.log("element recieved: " + element);
+        element.innerHTML = board[i][j];
+      }
+    }
+  }
+});
+
 document
   .querySelector("#chat-form")
   .addEventListener("submit", onFormSubmitted);
-
-// document.getElementById('ttt' + 2 +"-" + 2)
-// .addEventListener('click', () => {
-//     sock.emit('message', '2-2');
-//     console.log("Button pressed " + 2 + ", " + 2)
-// });
-
-// document.getElementById('ttt' + 0 +"-" + 1)
-// .addEventListener('click', () => {
-//     sock.emit('message', 0 +"-" + 1);
-//     console.log("Button pressed " + 0 + ", " + 1)
-// });
 
 addButtonListenersTTT();
