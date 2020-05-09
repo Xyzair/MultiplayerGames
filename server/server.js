@@ -2,6 +2,8 @@ const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
 
+const TicTacToe = require("./tictactoe");
+
 const app = express();
 
 const clientPath = `${__dirname}/../client`;
@@ -14,20 +16,35 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
-io.on("connection", (sock) => {
-  console.log('Someone has connected');
-  sock.on('disconnect', () => {
-    console.log('someone has disconnected')
-  });
+let waitingPlayer = null;
 
+//Handle logic for clients
+io.on("connection", (sock) => {
+  //Connecting outputs
+  console.log("Someone has connected");
   sock.emit("message", "You are connected");
 
-  //receive message from client and send to all clients
-  sock.on('message', (text) => {
-    console.log(text);
-    io.emit('message', text);
+  sock.on("disconnect", () => {
+    console.log("someone has disconnected");
+    if (waitingPlayer !== null) {
+      waitingPlayer = null;
+    }
   });
 
+  //Let's start a game.
+  if (waitingPlayer) {
+    new TicTacToe(waitingPlayer, sock);
+    waitingPlayer = null;
+  } else {
+    waitingPlayer = sock;
+    waitingPlayer.emit("message", "Waiting for an opponent");
+  }
+
+  //receive message from client and send to all clients
+  sock.on("message", (text) => {
+    console.log("msg:" + text);
+    io.emit("message", text);
+  });
 });
 
 server.on("error", (err) => {
